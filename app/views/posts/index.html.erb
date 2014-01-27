@@ -1,3 +1,14 @@
-<h3>Welcome!</h3>
+<h3>Posts</h3>
 
-<p>This is the Postit template. You've access the PostsController, index action. This is the index template. Find me under app/views/posts folder.</p>
+
+
+<% @posts.each  do |post| %>
+<div class="well span8">
+  <% post.categories.each do |cat| %>
+    
+    <%= render '/categories/category', category: cat %>
+  <% end %>
+  <h5> <%= link_to post.title, post_path(post) %> </h5> 
+  Posted by <%= post.creator %> at <%= post.created_at %>
+</div>
+<% end %> 
