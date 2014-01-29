@@ -1,7 +1,44 @@
 
 
 <h4><%= @post.title %></h4>
-<%= @post.description %>
+<small><span class="quiet"> By </span> <%= link_to @post.creator.username %> 
+   at <%= display_datetime(@post.created_at) %> </small>
 <p/>
-<%= link_to "Edit", edit_post_path %>
-<%= link_to "Back", posts_path %>
+<p/>
+<%= @post.description %>
+
+
+
+<p/>
+
+<%= link_to "Edit", edit_post_path(@post) %>
+<%= link_to "Back", posts_path(@post) %>
+
+
+ 
+
+
+<%= form_for [@post, @comment] do |f| %>
+ <%= render 'shared/errors', object: @comment %>
+ <div class='control-group'>
+    <%= f.label :body, 'Leave a comment' %>
+    <%= f.text_area :body, rows: 3, class: "span4" %>
+  </div>
+  
+  <%= f.submit 'Create Comment', class: "btn btn-primary" %>
+<% end %>
+
+<h5>Comments:</h5>
+
+<% @post.comments.each do |comment| %>
+
+  <div class="well span8">
+    <em>"<%= comment.body %>" </em>
+    <br/>
+    <span class="quiet"> By </span> <%= link_to comment.creator.username %> 
+  <small> at <%= display_datetime(comment.created_at) %> </small>
+    <small><%= link_to "edit", edit_post_comment_path(@post, comment)  %></small>
+
+  </div>
+
+<% end %>

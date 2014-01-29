@@ -1,11 +1,8 @@
 <%= render 'shared/content_title', title: 'New Category' %>
 
 <% if @category.errors.any? %>
-<div class="alert alert-danger">
-  <% @category.errors.full_messages.each do |msg| %>
-  <%= msg %>
-  <% end %>
-</div>
+
+<%= render 'shared/errors', object: @category %>
 <% end %>
 
 <div class="well span8">

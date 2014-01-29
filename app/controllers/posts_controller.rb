@@ -6,11 +6,12 @@ class PostsController < ApplicationController
   end
 
   def show
-    
+    @comment = Comment.new
   end
 
   def new
     @post = Post.new
+    @categories = Category.all
   end
 
   def create
@@ -27,17 +28,16 @@ class PostsController < ApplicationController
   end
 
   def edit
-
-    
-    
+      
   end
 
+
   def update
-    
+  
     
     if @post.update(post_params)
       flash[:notice] = "Your post was updated"
-      redirect_to posts_path
+      redirect_to post_path(@post)
     else
       render :edit
     end
@@ -46,7 +46,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :url, :description)
+    params.require(:post).permit(:title, :url, :description, category_ids: [])
   end
 
   def set_post

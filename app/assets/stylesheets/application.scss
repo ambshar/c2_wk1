@@ -29,9 +29,10 @@
 div.nav_item {
   margin-left: 25px;
   float: left;
+  
 }
 
-.label  {
+.label, .badge  {
   a, a:hover, a:focus {
     color: #fff;
     text-decoration: none;

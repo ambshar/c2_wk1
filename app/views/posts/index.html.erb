@@ -1,14 +1,11 @@
-<h3>Posts</h3>
-
-
+<%= render 'shared/content_title', title: 'All Posts' %>
 
 <% @posts.each  do |post| %>
-<div class="well span8">
-  <% post.categories.each do |cat| %>
-    
-    <%= render '/categories/category', category: cat %>
-  <% end %>
-  <h5> <%= link_to post.title, post_path(post) %> </h5> 
-  Posted by <%= post.creator %> at <%= post.created_at %>
-</div>
+<%= render 'post', post: post %>
 <% end %> 
+
+<p/>
+<div>
+
+
+</div>
