@@ -2,7 +2,7 @@
   <%= render post.categories %>
   
   <h5> <%= link_to post.title, fix_url(post.url) %> </h5> 
-  <span class="quiet"> posted by </span> <%= post.creator.username %> 
+  <span class="quiet"> posted by </span> <%= link_to post.creator.username, user_path(post.creator) %> 
   <small> at <%= display_datetime(post.created_at) %> </small>
   <p/>
   <%= link_to pluralize("#{post.comments.size}","comment"), post_path(post) %>
