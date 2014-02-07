@@ -1,8 +1,11 @@
 class CommentsController < ApplicationController
+  before_action :set_post, only: [:create, :update]
+  before_action :set_comment, only: [:edit, :update, :vote]
+  
+  before_action :require_user
 
 
   def create
-    @post = Post.find(params[:post_id])
     
     @comment = @post.comments.build(comment_params)
     @comment.user_id = session[:user_id]
@@ -22,14 +25,17 @@ class CommentsController < ApplicationController
 
   def edit
       
-      @comment = Comment.find(params[:id])
+    
       @post = @comment.post
+      if @comment.creator != current_user
+         flash[:error] = "You cannot edit this comment"
+          redirect_to posts_path
+      end
 
   end
 
   def update
-    @post = Post.find(params[:post_id])
-    @comment = Comment.find(params[:id])
+    
     
     if @comment.update(comment_params)
        
@@ -41,9 +47,32 @@ class CommentsController < ApplicationController
 
   end
 
+  def vote
+    
+    
+    @vote = Vote.create(voteable: @comment, creator: current_user, vote: params[:vote])
+
+    if @vote.valid?
+      flash[:notice] = "Thank you for voting"
+
+    else
+      flash[:error] = "You have voted for this Comment"
+    end
+    redirect_to :back
+  end
+
   private
 
   def comment_params
     params.require(:comment).permit(:body, :user_id)
+  end
+
+  def set_post
+    @post = Post.find(params[:post_id])
+  end
+
+  def set_comment
+    @comment = Comment.find(params[:id])
+    
   end
 end
