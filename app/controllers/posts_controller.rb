@@ -51,7 +51,7 @@ class PostsController < ApplicationController
   end
 
   def vote
-
+    
 
     @vote = Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
     
