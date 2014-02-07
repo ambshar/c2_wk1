@@ -21,7 +21,7 @@
   <div class="well span8">
     <%= render post.categories %>
     
-    <h5> <%= link_to post.title, fix_url(post.url) %> </h5> 
+    <h5> <%= link_to post.title, fix_url(post.url), :target => "_blank" %> </h5> 
     <span class="quiet"> posted by </span> <%= link_to post.creator.username, user_path(post.creator) %> 
     <small> at <%= display_datetime(post.created_at) %> </small>
     <p/>
