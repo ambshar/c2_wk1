@@ -13,6 +13,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'voteable_ambshar', '= 0.0.2', path: 'C:\Users\AZ\code\tealeaf\program\course2\wk1\voteable-gem'
 
 group :doc do
   gem 'sdoc', require: false

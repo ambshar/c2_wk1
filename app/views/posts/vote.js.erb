@@ -1,0 +1,10 @@
+
+<% if @vote.valid? %>
+  $('#post_<%= @post.id %>_votes').html('<%= pluralize(@post.total_votes, "vote") %>');
+  $('#post_<%= @post.id %>_check').html('<i class="icon-ok pull-right"> </i>');
+   
+
+<% else %>
+  $('#post_vote_error_<%= @post.id %>').show();
+  //alert("can't vote more than once");
+<% end %>

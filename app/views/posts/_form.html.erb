@@ -4,8 +4,9 @@
 <% end %>
 
 <%= form_for @post do |f| %>
+
   <%= f.label :title %>
-  <%= f.text_field :title %>
+  <%= f.text_field :title, readonly: !@post.new_record?   %>
   <%= f.label :url %>
   <%= f.text_field :url %>
   <%= f.label :description %>

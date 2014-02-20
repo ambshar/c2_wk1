@@ -51,21 +51,22 @@ class PostsController < ApplicationController
   end
 
   def vote
-    
+  
 
     @vote = Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
     
-    
-    if @vote.valid?
-      flash[:notice] = "Thank you for voting"
-  
-    else
+    respond_to do |format|
+      format.html do
+        if @vote.valid?
+          flash[:notice] = "Thank you for voting"
+        else
+           flash[:error] = "You have already voted for this Post"
+        end
+        redirect_to :back
+     end
+      format.js
 
-      flash[:error] = "You have already voted for this Post"
     end
-
-    redirect_to :back
-
 
   end
 
@@ -76,7 +77,7 @@ class PostsController < ApplicationController
   end
 
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.find_by(slug: params[:id])
   end
 
 end

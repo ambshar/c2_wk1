@@ -51,14 +51,20 @@ class CommentsController < ApplicationController
     
     
     @vote = Vote.create(voteable: @comment, creator: current_user, vote: params[:vote])
+    
 
-    if @vote.valid?
-      flash[:notice] = "Thank you for voting"
+    respond_to do |format|
+      format.html do
+        if @vote.valid?
+          flash[:notice] = "Thank you for voting"
 
-    else
-      flash[:error] = "You have voted for this Comment"
-    end
-    redirect_to :back
+        else
+          flash[:error] = "You have voted for this Comment"
+        end
+        redirect_to :back
+      end
+      format.js
+    end    
   end
 
   private
@@ -68,7 +74,7 @@ class CommentsController < ApplicationController
   end
 
   def set_post
-    @post = Post.find(params[:post_id])
+    @post = Post.find_by(slug: params[:post_id])
   end
 
   def set_comment

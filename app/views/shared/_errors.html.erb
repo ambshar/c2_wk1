@@ -1,11 +1,11 @@
 
 <% if object.errors.any? %>
 
-<div class="alert alert-danger">
-<%= render 'shared/content_title', title: "There were errors in #{object.class}" %>
-  <% object.errors.full_messages.each do |msg| %>
-  <%= msg %>
-  <p/>
-  <% end %>
-</div>
+  <div class="alert alert-danger">
+    <%= render 'shared/content_title', title: "There were errors in #{object.class}" %>
+    <% object.errors.full_messages.each do |msg| %>
+      <%= msg %>
+      <p/>
+    <% end %>
+  </div>
 <% end %>
