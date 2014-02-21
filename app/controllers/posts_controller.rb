@@ -1,14 +1,29 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :vote]
   before_action :require_user, except: [:show, :index]
+  before_action :require_creator, only: [:edit, :update]
   
   def index
 
     @posts = Post.all
+
+    respond_to do |format|
+      format.html
+      format.json {render json: @posts}  #API hooks
+      
+      format.xml { render xml: @posts}
+    end
   end
 
   def show
     @comment = Comment.new
+    respond_to do |format|
+      format.html
+      format.json {render json: @post}
+      
+      format.xml { render xml: @post}
+    end
+
   end
 
   def new
@@ -32,10 +47,10 @@ class PostsController < ApplicationController
   end
 
   def edit
-      if @post.creator != current_user
-        flash[:error] = "You cannot edit this post"
-        redirect_to posts_path
-      end
+      #if @post.creator != current_user && !current_user.admin?
+      #  flash[:error] = "You cannot edit this post"
+      #  redirect_to posts_path
+      #end
   end
 
 
@@ -78,6 +93,10 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.find_by(slug: params[:id])
+  end
+
+  def require_creator
+    access_denied unless logged_in? and (current_user == @post.creator || current_user.admin?)
   end
 
 end

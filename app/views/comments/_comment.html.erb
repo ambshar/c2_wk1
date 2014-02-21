@@ -28,7 +28,7 @@
 
   <div class="well span8">
     <em>"<%= comment.body %>" </em>
-    <% if show_post %>
+    <% if show_post %>   <!To show the post title when displaying comments on user#show page -->
       on <%= link_to comment.post.title, post_path(comment.post) %>
     <% end %>
     <br/>

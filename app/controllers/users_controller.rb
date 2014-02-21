@@ -37,7 +37,14 @@ class UsersController < ApplicationController
   end
 
   def show
-   # binding.pry
+    
+   
+   respond_to do |format|
+      format.html
+      format.json {render json: @user}
+      
+      format.xml { render xml: @user}
+    end
 
   end
 

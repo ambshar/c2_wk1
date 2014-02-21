@@ -16,3 +16,4 @@
 //= require_tree .
 //= require bootstrap
 
+$('#two_factor_phone').tooltip(title="tyu")
