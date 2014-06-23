@@ -7,7 +7,8 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true, uniqueness: true
   validates :password, presence: true, length: {minimum: 3} 
-
+  validates :email, presence: true, uniqueness: true
+  
   sluggable_column :username
   
   before_create { |user| user.username = user.username.downcase}
