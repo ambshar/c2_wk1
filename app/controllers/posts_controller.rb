@@ -38,7 +38,7 @@ class PostsController < ApplicationController
     
     if @post.save
       flash[:notice] = "Your post was created"
-      AppMailer.mail_on_post_creation(current_user).deliver
+      AppMailer.mail_on_post_creation(current_user, @post).deliver
       redirect_to posts_path
     else
       render :new
